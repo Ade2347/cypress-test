@@ -96,7 +96,7 @@ describe('First test suite', () => {
   
 
     })
-    it.only('Radio buttons', () => {
+    it('Radio buttons', () => {
         cy.contains('Forms').click()
         cy.contains('Form Layouts').click()
 
@@ -115,6 +115,24 @@ describe('First test suite', () => {
 
         cy.contains('nb-card','Basic form').find('[type="checkbox"]').then(checkbox => {
             cy.wrap(checkbox).check({force: true}).should('be.checked')
+        })
+  
+
+    })
+    it('date picker', () => {
+        cy.contains('Forms').click()
+        cy.contains('Datepicker').click()
+
+        // let date = new Date()
+        // date.setDate(date.getDate() + 5)
+        // console.log(date)
+
+
+        cy.contains('nb-card','Common Datepicker').find('input').then(input => {
+            cy.wrap(input).click()
+            cy.get('.day-cell').not('.bounding-month').contains('21').click()
+            cy.wrap(input).invoke('prop', 'value').should('contain', 'Mar 21, 2025')
+            cy.wrap(input).should('have.value', 'Mar 21, 2025')
         })
   
 
